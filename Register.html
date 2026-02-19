@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- logInBrain.css -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    
+</head>
+<body >
+
+  <h2 class="text-center" id="reg-message" > my message here,   </h2>
+    <!-- ################### -->
+<!-- Registration 2 - Bootstrap Brain Component -->
+<div class="bg-light py-5 py-md-5 min-vh-100" >
+  <div class="container" style="margin:auto"> 
+    <div class="row justify-content-md-center" >
+      <div class="col-12 col-md-11 col-lg-8 col-xl-7 col-xxl-6">
+        <div class="bg-white p-4 p-md-4 rounded-2 shadow-lg">
+          <div class="row">
+            <!-- my div to fill its container as 1 col  -->
+            <div class="col-12">
+              <div class="mb-2">
+                <h2 class="h3 text-center">Registration</h2>
+                <h3 class="fs-6 fw-normal text-secondary text-center m-0 text-muted">
+                  Please Enter your Data
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- My form -->
+          <form  id="register-form" action="#!">
+            <!-- gy-3 decreasing the indedient when sizing down  -->
+             <!-- gy-3 gy-md-4   controll glutter-->
+            <div class="row gy-3 gy-md-4 overflow-hidden">  
+                 <!--12/12=1  -->
+              <div class="col-12"> 
+                <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                <input
+                  type="text"
+                  
+                  class="form-control"
+                  name="firstName"
+                  id="reg-firstName"
+                  placeholder="First Name"
+                required  
+                />
+                <!-- required;  pls fill out this feild  -->
+              </div>
+              <div class="col-12">
+                <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="lastName"
+                  id="reg-lastName"
+                  placeholder="Last Name"
+                  required
+                />
+              </div>
+              <div class="col-12">
+                <label for="email" class="form-label">Email <span class="text-danger">*</span></label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  id="reg-email"
+                  placeholder="Abdelrahman@example.com"
+                  required
+                />
+              </div>
+              <div class="col-12">
+                <label for="password" class="form-label">Password <span class="text-danger">*</span></label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  id="reg-password"
+                  
+                  required
+                />
+                <span id="passwordCheck">At least 8 characters, including 1 uppercase letter & 1 special character.</span>
+              </div>
+              <div class="col-12">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="AgrementCheck"
+                    id="AgrementCheck"
+                    required
+                  />
+                  <label class="text-muted" for="AgrementCheck">
+                       I agree to the
+                    <a href="#" class="text-decoration-none"
+                      >terms and conditions</a
+                    >
+                  </label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="" style="display: flex; justify-content: center; ">
+                  <button class="btn btn-lg btn-primary" style="width: 100%;" type="submit">
+                    Sign up
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+            <!-- end of the form -->
+
+          <hr class="mt-4 mb-4" />
+          <div class="row">
+            <div class="col-12">
+              
+              <div class="col-12">
+                <p class="m-1 text-muted text-center">
+                  Already have an account?
+                  <a href="./RealLogin.html" class="text-decoration-none"
+                    >Sign in</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+</div>
+
+    <!-- ###################  script ########################-->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const supabaseUrl = 'https://qsmvtalwscuvqktjlleq.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFzbXZ0YWx3c2N1dnFrdGpsbGVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0MDI3MjksImV4cCI6MjA4Njk3ODcyOX0.GVZ6I2nYwqq5q0i9tehslYEDwxDBsWv1JO9_MzBn7yk'
+ supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+
+function PasswordConstraint( _password)
+{
+  const passwordCheck=document.getElementById('passwordCheck');
+  if(!( _password.length >=8))
+  {
+    console.log(passwordCheck);
+    passwordCheck.textContent="At least 8 Letter"
+    passwordCheck.style.color="red";
+    return false;
+  }
+  
+  const specialCharPattern = /[^a-zA-Z0-9]/;
+  if(!(specialCharPattern.test(_password) )) {
+    passwordCheck.textContent="Need Special character"
+    passwordCheck.style.color="red";
+    return false ;
+    }
+
+  const uppercasePattern = /[A-Z]/; // matches any uppercase A–Z return uppercasePattern.test(str);
+   if(!( uppercasePattern.test(_password)))
+   {
+    passwordCheck.textContent="At least Capital letter"
+    passwordCheck.style.color="red";
+    return false ;
+   }
+return true; //password is valid
+}
+//when hit submit
+document.getElementById('register-form').addEventListener('submit', async (e) => {
+e.preventDefault(); 
+
+ const fName=document.getElementById('reg-firstName').value;
+  const lName=document.getElementById('reg-lastName').value;
+  const email = document.getElementById('reg-email').value;
+  const password = document.getElementById('reg-password').value;
+
+
+if (!PasswordConstraint(password)) 
+  
+  {
+
+    return;
+  }
+
+
+  const messageEl = document.getElementById('reg-message');
+  // const UserNameIn=document.getElementById('UserNameSpan').value;
+
+  const { data, error } = await supabase.auth.signUp({
+    email: email,
+    password: password,
+    options: { data: { fName, lName }} // custom metadata stored in auth.users as Diplayed Name
+});
+
+   if (error) {
+    messageEl.textContent = 'Error: ' + error.message;
+    messageEl.style.color = 'red';
+  } else {
+    
+    messageEl.textContent = `Success! Please check your email to confirm your account. ${fName}` ;
+    
+    messageEl.style.color = 'green';
+        // You can now redirect the user to a dashboard page
+    // window.location.href = '/dashboard.html';
+  }
+
+});
+     </script>
+</body>
+</html>
